@@ -69,11 +69,11 @@ paths:
                         card_type:
                           type: string
                         expiration_month:
-                          type: number
+                          type: string
                         expiration_year:
-                          type: number
+                          type: string
                         cvv:
-                          type: number
+                          type: string
                         card_holder_name:
                           type: string
                         zip_code:
@@ -90,7 +90,7 @@ paths:
         description: Subscription ID
   /auth:
     post:
-      summary: ''
+      summary: SignUp
       responses:
         '200':
           description: OK
@@ -167,7 +167,7 @@ paths:
                 - password_confirmation
   /auth/sign_in:
     post:
-      summary: ''
+      summary: SignIn
       responses:
         '200':
           description: OK
