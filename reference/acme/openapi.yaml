@@ -88,6 +88,116 @@ paths:
         in: path
         required: true
         description: Subscription ID
+  /auth:
+    post:
+      summary: ''
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  data:
+                    $ref: ../common/models/user.v1.yaml
+              examples:
+                example:
+                  value:
+                    status: success
+                    data:
+                      uid: karol@krl.im
+                      id: 1
+                      email: karol@krl.im
+                      provider: email
+                      allow_password_change: false
+                      name: null
+                      nickname: null
+                      image: null
+                      created_at: '2019-09-23T11:42:37.438Z'
+                      updated_at: '2019-09-23T11:42:37.584Z'
+          headers:
+            access_token:
+              schema:
+                type: string
+              description: |
+                Api Access Token
+              required: true
+            uid:
+              schema:
+                type: string
+              description: User uid
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                $ref: ../common/models/error.v1.yaml
+              examples:
+                example:
+                  value:
+                    success: false
+                    errors:
+                      - Please submit proper sign up data in request body.
+                    status: error
+      description: Email registration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+                password_confirmation:
+                  type: string
+                name:
+                  type: string
+                nickname:
+                  type: string
+                image:
+                  type: string
+              required:
+                - email
+                - password
+                - password_confirmation
+  /auth/sign_in:
+    post:
+      summary: ''
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: ../common/models/user.v1.yaml
+          headers:
+            access_token:
+              schema:
+                type: string
+              description: User access token
+      description: User Sign In
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+              required:
+                - email
+                - password
+        description: ''
 components:
   schemas: {}
   securitySchemes:

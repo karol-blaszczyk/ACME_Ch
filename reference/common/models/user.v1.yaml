@@ -1,0 +1,25 @@
+title: User
+type: object
+properties:
+  uid:
+    type: string
+  id:
+    type: number
+  email:
+    type: string
+  provider:
+    type: string
+  allow_password_change:
+    type: boolean
+  name:
+    type:
+      - string
+      - 'null'
+  nickname:
+    type:
+      - string
+      - 'null'
+  image:
+    type:
+      - string
+      - 'null'

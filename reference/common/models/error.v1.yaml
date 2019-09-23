@@ -1,0 +1,18 @@
+title: Error
+type: object
+x-examples:
+  example-1:
+    value:
+      success: false
+      errors:
+        - Please submit proper sign up data in request body.
+      status: error
+properties:
+  success:
+    type: boolean
+  errors:
+    type: array
+    items:
+      type: string
+  status:
+    type: string
