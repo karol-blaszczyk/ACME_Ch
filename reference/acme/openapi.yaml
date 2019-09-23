@@ -1,0 +1,97 @@
+openapi: 3.0.0
+info:
+  title: ACME Box of the month
+  version: '1.0'
+  description: ''
+servers:
+  - url: 'http://localhost:3000'
+paths:
+  '/subscription/{id}':
+    post:
+      summary: ''
+      responses:
+        '200':
+          description: OK
+        '201':
+          description: Created
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                subscription:
+                  type: object
+                  required:
+                    - customer_attributes
+                    - credit_card_attributes
+                  properties:
+                    customer_attributes:
+                      type: object
+                      required:
+                        - first_name
+                        - last_name
+                        - adress
+                        - zip_code
+                      properties:
+                        first_name:
+                          type: string
+                        last_name:
+                          type: string
+                        adress:
+                          type: string
+                        zip_code:
+                          type: string
+                    credit_card_attributes:
+                      type: object
+                      required:
+                        - card_number
+                        - card_type
+                        - expiration_month
+                        - expiration_year
+                        - cvv
+                        - card_holder_name
+                        - zip_code
+                      properties:
+                        card_number:
+                          type: string
+                        card_type:
+                          type: string
+                        expiration_month:
+                          type: number
+                        expiration_year:
+                          type: number
+                        cvv:
+                          type: number
+                        card_holder_name:
+                          type: string
+                        zip_code:
+                          type: string
+              required:
+                - subscription
+      description: "When a request to API endpoint is made, you will attempt a \"purchase\" with the customer's payment information. If the purchase is successful, a new subscription will be created."
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+        description: Subscription ID
+components:
+  schemas: {}
+  securitySchemes:
+    'API Key ':
+      name: API Key
+      type: apiKey
+      in: header
