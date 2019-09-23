@@ -1,19 +1,23 @@
 openapi: 3.0.0
 info:
-  title: ACME Box of the month
+  title: ACME
   version: '1.0'
-  description: ''
+  description: 'Acme Online sells subscriptions to a "box of the month" service.'
 servers:
   - url: 'http://localhost:3000'
 paths:
-  '/subscription/{id}':
+  /subscriptions:
     post:
       summary: ''
       responses:
-        '200':
-          description: OK
         '201':
           description: Created
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: ../common/models/401.v1.yaml
         '422':
           description: Unprocessable Entity
           content:
@@ -78,16 +82,12 @@ paths:
                           type: string
                         zip_code:
                           type: string
+                plan_id:
+                  type: number
               required:
                 - subscription
       description: "When a request to API endpoint is made, you will attempt a \"purchase\" with the customer's payment information. If the purchase is successful, a new subscription will be created."
-    parameters:
-      - schema:
-          type: string
-        name: id
-        in: path
-        required: true
-        description: Subscription ID
+    parameters: []
   /auth:
     post:
       summary: SignUp
@@ -119,7 +119,7 @@ paths:
                       created_at: '2019-09-23T11:42:37.438Z'
                       updated_at: '2019-09-23T11:42:37.584Z'
           headers:
-            access_token:
+            access-token:
               schema:
                 type: string
               description: |
@@ -165,6 +165,7 @@ paths:
                 - email
                 - password
                 - password_confirmation
+        description: ''
   /auth/sign_in:
     post:
       summary: SignIn
@@ -179,7 +180,7 @@ paths:
                   data:
                     $ref: ../common/models/user.v1.yaml
           headers:
-            access_token:
+            access-token:
               schema:
                 type: string
               description: User access token
@@ -201,7 +202,7 @@ paths:
 components:
   schemas: {}
   securitySchemes:
-    'API Key ':
-      name: API Key
-      type: apiKey
-      in: header
+    AccessToken:
+      type: http
+      scheme: Bearer
+      description: User Access Token

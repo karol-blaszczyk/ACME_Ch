@@ -1,0 +1,7 @@
+title: 401
+type: object
+properties:
+  errors:
+    type: array
+    items:
+      type: string
