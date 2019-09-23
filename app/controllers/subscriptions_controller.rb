@@ -1,10 +1,11 @@
 class SubscriptionsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_subscription, only: [:show, :update, :destroy]
 
   # GET /subscriptions
   def index
     @subscriptions = Subscription.all
-
+    
     render json: @subscriptions
   end
 
