@@ -23,6 +23,11 @@ RSpec.describe CreateSubscription, type: :service do
     }
   end
 
+  before do
+    stub_request(:post, 'https://www.fakepay.io/purchase')
+      .to_return(status: 200, body: { token: 123 }.to_json, headers: {})
+  end
+
   it 'works' do
     subscription = user.subscriptions.new(plan: plan, price: plan.price)
 
@@ -38,13 +43,22 @@ RSpec.describe CreateSubscription, type: :service do
                       'zip_code' => '10045' }]
     )
 
-    expect { create_subscription.call subscription }.to
-    change { user.subscriptions.count }.by(1)
-      .and change(user, :last_billed_at).from(nil).to(Date.today)
-      .and change(user, :credit_card_token)
+    expect { create_subscription.call subscription }.to change { user.subscriptions.count }.by(1)
+                                                                                           .and change(user, :last_billed_at).from(nil).to(Date.today)
+                                                                                                                             .and change(user, :credit_card_token)
       .and change(user, :billing_first_name).from(nil).to('first_name')
-      .and change(user, :billing_last_name).from(nil).to('last_name')
-      .and change(user, :billing_adress).from(nil).to('adress')
-      .and change(user, :billing_zip_code).from(nil).to('zip_code')
+                                            .and change(user, :billing_last_name).from(nil).to('last_name')
+                                                                                 .and change(user, :billing_adress).from(nil).to('adress')
+                                                                                                                   .and change(user, :billing_zip_code).from(nil).to('zip_code')
+  end
+
+  context 'when subcription is invalid' do
+    it 'does not attempt to charge card' do
+    end
+  end
+
+  context 'when purchase unsuccessful' do
+    it 'does not create subscription' do
+    end
   end
 end
