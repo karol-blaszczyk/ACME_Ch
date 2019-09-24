@@ -14,18 +14,21 @@ ActiveRecord::Schema.define(version: 2019_09_24_084642) do
 
   create_table "plans", force: :cascade do |t|
     t.string "name"
-    t.float "price"
+    t.integer "price"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["name"], name: "index_plans_on_name", unique: true
   end
 
   create_table "subscriptions", force: :cascade do |t|
     t.float "price"
     t.integer "user_id", null: false
     t.integer "plan_id", null: false
+    t.datetime "last_billed_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["plan_id"], name: "index_subscriptions_on_plan_id"
+    t.index ["user_id", "plan_id"], name: "index_subscriptions_on_user_id_and_plan_id", unique: true
     t.index ["user_id"], name: "index_subscriptions_on_user_id"
   end
 
@@ -33,24 +36,19 @@ ActiveRecord::Schema.define(version: 2019_09_24_084642) do
     t.string "provider", default: "email", null: false
     t.string "uid", default: "", null: false
     t.string "encrypted_password", default: "", null: false
-    t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.boolean "allow_password_change", default: false
     t.datetime "remember_created_at"
-    t.string "confirmation_token"
-    t.datetime "confirmed_at"
-    t.datetime "confirmation_sent_at"
-    t.string "unconfirmed_email"
-    t.string "name"
-    t.string "nickname"
-    t.string "image"
     t.string "email"
+    t.string "credit_card_token"
+    t.integer "billing_day"
+    t.string "billing_first_name"
+    t.string "billing_last_name"
+    t.string "billing_adress"
+    t.string "billing_zip_code"
+    t.date "last_billed_at"
     t.text "tokens"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
