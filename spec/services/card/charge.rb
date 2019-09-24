@@ -2,8 +2,9 @@
 
 require 'rails_helper'
 
-RSpec.describe ChargeCard::NewCard, type: :service do
-  subject(:new_card_charge) { described_class.new }
+RSpec.describe Card::Charge, type: :service do
+  subject(:card_charge) { described_class.new }
+  let(:subscription) { create(:subscription) }
 
   context 'with valid card' do
     subject(:new_card) { '' }
@@ -18,7 +19,7 @@ RSpec.describe ChargeCard::NewCard, type: :service do
 
     it 'purchase correctly and return token' do
       expect(
-        ChargeCard::NewCard.new.call(
+        card_charge.call(
           amount: '1000',
           credit_card_attributes: credit_card_attributes
         )

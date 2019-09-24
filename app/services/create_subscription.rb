@@ -6,7 +6,7 @@ class Container
 
   namespace 'subscriptions' do
     register 'charge_card' do
-      Card::Charge.new
+      Subscriptions::Charge.new
     end
 
     register 'save' do

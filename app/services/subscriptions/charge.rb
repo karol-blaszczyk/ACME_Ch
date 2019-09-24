@@ -3,7 +3,7 @@
 require 'dry/transaction'
 require 'dry/transaction/operation'
 
-module Card
+module Subscriptions
   class Charge
     include Dry::Transaction::Operation
 

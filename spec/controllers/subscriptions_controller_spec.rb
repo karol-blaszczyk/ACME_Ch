@@ -26,11 +26,23 @@ require 'rails_helper'
 # `rails-controller-testing` gem.
 
 RSpec.describe SubscriptionsController, type: :controller do
+  let(:plan) {create(:plan)}
   # This should return the minimal set of attributes required to create a valid
   # Subscription. As you add validations to Subscription, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) do
-    skip('Add a hash of attributes valid for your model')
+    {'subscription' => {
+      'customer_attributes' => { 'first_name' => 'string',
+                                 'last_name' => 'string',
+                                 'adress' => 'string',
+                                 'zip_code' => 'string' },
+      'credit_card_attributes' => { 'card_number' => '4242424242424242',
+                                    'cvv' => '123',
+                                    'expiration_month' => '01',
+                                    'expiration_year' => '2024',
+                                    'zip_code' => '10045' },
+      'plan_id' => plan.id
+    }}
   end
 
   let(:invalid_attributes) do
@@ -83,42 +95,9 @@ RSpec.describe SubscriptionsController, type: :controller do
     end
   end
 
-  describe 'PUT #update' do
-    context 'with valid params' do
-      let(:new_attributes) do
-        skip('Add a hash of attributes valid for your model')
-      end
-
-      it 'updates the requested subscription' do
-        subscription = Subscription.create! valid_attributes
-        put :update, params: { id: subscription.to_param, subscription: new_attributes }, session: valid_session
-        subscription.reload
-        skip('Add assertions for updated state')
-      end
-
-      it 'renders a JSON response with the subscription' do
-        subscription = Subscription.create! valid_attributes
-
-        put :update, params: { id: subscription.to_param, subscription: valid_attributes }, session: valid_session
-        expect(response).to have_http_status(:ok)
-        expect(response.content_type).to eq('application/json')
-      end
-    end
-
-    context 'with invalid params' do
-      it 'renders a JSON response with errors for the subscription' do
-        subscription = Subscription.create! valid_attributes
-
-        put :update, params: { id: subscription.to_param, subscription: invalid_attributes }, session: valid_session
-        expect(response).to have_http_status(:unprocessable_entity)
-        expect(response.content_type).to eq('application/json')
-      end
-    end
-  end
-
   describe 'DELETE #destroy' do
     it 'destroys the requested subscription' do
-      subscription = Subscription.create! valid_attributes
+      subscription = create!(:subscription)
       expect do
         delete :destroy, params: { id: subscription.to_param }, session: valid_session
       end.to change(Subscription, :count).by(-1)

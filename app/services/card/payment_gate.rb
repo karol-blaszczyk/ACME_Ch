@@ -18,9 +18,7 @@ module Card
 
     def call(attributes)
       response = FAKEPAY_CONNECTION.post('/purchase', attributes.to_json)
-      puts '*' * 60
-      puts 'CHARGE'
-      puts '*' * 60
+
       if response.success?
         Success(JSON.parse(response.body))
       else
