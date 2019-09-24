@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SubscriptionSerializer
   include FastJsonapi::ObjectSerializer
   attributes :price

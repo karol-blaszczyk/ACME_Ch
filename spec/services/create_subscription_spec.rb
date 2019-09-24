@@ -44,12 +44,12 @@ RSpec.describe CreateSubscription, type: :service do
     )
 
     expect { create_subscription.call subscription }.to change { user.subscriptions.count }.by(1)
-                                                                                           .and change(user, :last_billed_at).from(nil).to(Date.today)
-                                                                                                                             .and change(user, :credit_card_token)
+      .and change(user, :last_billed_at).from(nil).to(Date.today)
+      .and change(user, :credit_card_token)
       .and change(user, :billing_first_name).from(nil).to('first_name')
-                                            .and change(user, :billing_last_name).from(nil).to('last_name')
-                                                                                 .and change(user, :billing_adress).from(nil).to('adress')
-                                                                                                                   .and change(user, :billing_zip_code).from(nil).to('zip_code')
+      .and change(user, :billing_last_name).from(nil).to('last_name')
+      .and change(user, :billing_adress).from(nil).to('adress')
+      .and change(user, :billing_zip_code).from(nil).to('zip_code')
   end
 
   context 'when subcription is invalid' do
