@@ -25,7 +25,7 @@ class SubscriptionsController < ApplicationController
 
     create_subscription.call(new_subscription) do |transaction|
       transaction.success do |subscription|
-        render json: subscription, status: :created, location: subscription
+        render json: SubscriptionSerializer.new(subscription)
       end
       transaction.failure do |error|
         # Runs for any other failure

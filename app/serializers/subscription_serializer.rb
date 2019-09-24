@@ -1,6 +1,6 @@
 class SubscriptionSerializer
   include FastJsonapi::ObjectSerializer
-  attributes :price, :last_billed_at
+  attributes :price
 
   belongs_to :plan
   belongs_to :user
