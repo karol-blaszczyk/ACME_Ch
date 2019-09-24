@@ -36,16 +36,17 @@ group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'factory_bot_rails'
   gem 'faker'
+  gem 'pry'
 end
 
 group :test do
   gem 'rspec-rails', '~> 3.8'
   gem 'shoulda-matchers'
+  gem 'webmock'
 end
 
 group :development do
   gem 'listen', '>= 3.0.5', '< 3.2'
-  gem 'pry'
   gem 'rubocop'
   gem 'rubocop-performance'
   gem 'rubocop-rspec'

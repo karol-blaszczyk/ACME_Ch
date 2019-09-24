@@ -26,12 +26,22 @@ require 'rails_helper'
 # `rails-controller-testing` gem.
 
 RSpec.describe SubscriptionsController, type: :controller do
-  let(:plan) {create(:plan)}
+  let(:plan) { create(:plan) }
+  let(:user) { create(:user) }
+  let(:subscription) { create(:subscription, plan: plan, user: user) }
+
+  before do
+    request.headers.merge! user.create_new_auth_token
+
+    stub_request(:post, 'https://www.fakepay.io/purchase')
+      .to_return(status: 200, body: { token: '111' }.to_json, headers: {})
+  end
   # This should return the minimal set of attributes required to create a valid
   # Subscription. As you add validations to Subscription, be sure to
   # adjust the attributes here as well.
+
   let(:valid_attributes) do
-    {'subscription' => {
+    {
       'customer_attributes' => { 'first_name' => 'string',
                                  'last_name' => 'string',
                                  'adress' => 'string',
@@ -42,30 +52,20 @@ RSpec.describe SubscriptionsController, type: :controller do
                                     'expiration_year' => '2024',
                                     'zip_code' => '10045' },
       'plan_id' => plan.id
-    }}
+    }
   end
-
-  let(:invalid_attributes) do
-    skip('Add a hash of attributes invalid for your model')
-  end
-
-  # This should return the minimal set of values that should be in the session
-  # in order to pass any filters (e.g. authentication) defined in
-  # SubscriptionsController. Be sure to keep this updated too.
-  let(:valid_session) { {} }
 
   describe 'GET #index' do
     it 'returns a success response' do
-      subscription = Subscription.create! valid_attributes
-      get :index, params: {}, session: valid_session
+      subscription = create(:subscription)
+      get :index, params: {}
       expect(response).to be_successful
     end
   end
 
   describe 'GET #show' do
     it 'returns a success response' do
-      subscription = Subscription.create! valid_attributes
-      get :show, params: { id: subscription.to_param }, session: valid_session
+      get :show, params: { id: subscription.to_param }
       expect(response).to be_successful
     end
   end
@@ -74,32 +74,24 @@ RSpec.describe SubscriptionsController, type: :controller do
     context 'with valid params' do
       it 'creates a new Subscription' do
         expect do
-          post :create, params: { subscription: valid_attributes }, session: valid_session
+          post :create, params: { subscription: valid_attributes }
         end.to change(Subscription, :count).by(1)
       end
 
       it 'renders a JSON response with the new subscription' do
-        post :create, params: { subscription: valid_attributes }, session: valid_session
+        post :create, params: { subscription: valid_attributes }
         expect(response).to have_http_status(:created)
-        expect(response.content_type).to eq('application/json')
+        expect(response.content_type).to eq('application/json; charset=utf-8')
         expect(response.location).to eq(subscription_url(Subscription.last))
-      end
-    end
-
-    context 'with invalid params' do
-      it 'renders a JSON response with errors for the new subscription' do
-        post :create, params: { subscription: invalid_attributes }, session: valid_session
-        expect(response).to have_http_status(:unprocessable_entity)
-        expect(response.content_type).to eq('application/json')
       end
     end
   end
 
   describe 'DELETE #destroy' do
     it 'destroys the requested subscription' do
-      subscription = create!(:subscription)
+      subscription
       expect do
-        delete :destroy, params: { id: subscription.to_param }, session: valid_session
+        delete :destroy, params: { id: subscription.to_param }
       end.to change(Subscription, :count).by(-1)
     end
   end
