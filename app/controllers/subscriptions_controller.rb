@@ -5,7 +5,7 @@ class SubscriptionsController < ApplicationController
   # GET /subscriptions
   def index
     @subscriptions = Subscription.all
-    
+
     render json: @subscriptions
   end
 
@@ -47,6 +47,6 @@ class SubscriptionsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def subscription_params
-      params.require(:subscription).permit(:name, :price)
+      params.require(:subscription).permit(:name, :price, :user)
     end
 end
