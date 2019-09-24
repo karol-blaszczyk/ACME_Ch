@@ -38,9 +38,9 @@ group :development, :test do
   gem 'faker'
 end
 
-# Run against the latest stable release
-group :development, :test do
+group :test do
   gem 'rspec-rails', '~> 3.8'
+  gem 'shoulda-matchers'
 end
 
 group :development do
