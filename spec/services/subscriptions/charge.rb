@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Card::Charge, type: :service do
+RSpec.describe Subscriptions::Charge, type: :service do
   subject(:card_charge) { described_class.new }
   let(:subscription) { create(:subscription) }
 
