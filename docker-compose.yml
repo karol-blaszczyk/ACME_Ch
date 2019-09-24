@@ -1,0 +1,16 @@
+version: '3.7'
+
+services:
+  puma:
+    build:
+      context: .
+    command: bin/rails s -b '0.0.0.0' -p '3000'
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/app
+      - bundle:/bundle:cached
+    tty: true
+    stdin_open: true
+volumes:
+  bundle:

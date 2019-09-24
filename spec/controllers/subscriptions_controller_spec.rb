@@ -82,7 +82,6 @@ RSpec.describe SubscriptionsController, type: :controller do
         post :create, params: { subscription: valid_attributes }
         expect(response).to have_http_status(:created)
         expect(response.content_type).to eq('application/json; charset=utf-8')
-        expect(response.location).to eq(subscription_url(Subscription.last))
       end
     end
   end
