@@ -1,5 +1,4 @@
 class SubscriptionsController < ApplicationController
-  before_action :authenticate_user!
   before_action :set_subscription, only: [:show, :update, :destroy]
 
   # GET /subscriptions
@@ -47,6 +46,6 @@ class SubscriptionsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def subscription_params
-      params.require(:subscription).permit(:name, :price, :user)
+      params.require(:subscription).permit(:name, :price, :user_id, :plan_id)
     end
 end
