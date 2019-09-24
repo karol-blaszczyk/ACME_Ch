@@ -3,8 +3,6 @@
 class PlansController < ApplicationController
   # GET /plans
   def index
-    @plans = Plan.all
-
-    render json: @plans
+    render json: PlanSerializer.new(Plan.all)
   end
 end

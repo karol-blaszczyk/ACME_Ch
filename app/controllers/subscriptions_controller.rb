@@ -6,14 +6,12 @@ class SubscriptionsController < ApplicationController
 
   # GET /subscriptions
   def index
-    @subscriptions = current_user.subscriptions
-
-    render json: @subscriptions
+    render json: SubscriptionSerializer.new(current_user.subscriptions)
   end
 
   # GET /subscriptions/1
   def show
-    render json: @subscription
+    render json: SubscriptionSerializer.new(@subscription)
   end
 
   # POST /subscriptions

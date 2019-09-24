@@ -10,6 +10,7 @@ class User < ApplicationRecord
 
   has_many :subscriptions, dependent: :destroy
 
+  # Dont include credit_card token when serialized
   def as_json(options = {})
     super(options.merge(except: :credit_card_token))
   end
