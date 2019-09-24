@@ -9,4 +9,8 @@ class User < ApplicationRecord
   include DeviseTokenAuth::Concerns::User
 
   has_many :subscriptions, dependent: :destroy
+
+  def as_json(options = {})
+    super(options.merge(except: :credit_card_token))
+  end
 end
