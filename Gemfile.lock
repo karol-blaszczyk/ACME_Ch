@@ -64,6 +64,7 @@ GEM
       msgpack (~> 1.0)
     builder (3.2.3)
     byebug (11.0.1)
+    chronic (0.10.2)
     coderay (1.1.2)
     concurrent-ruby (1.1.5)
     crack (0.4.3)
@@ -248,6 +249,8 @@ GEM
     websocket-driver (0.7.1)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.4)
+    whenever (1.0.0)
+      chronic (>= 0.6.3)
     zeitwerk (2.1.10)
 
 PLATFORMS
@@ -277,6 +280,7 @@ DEPENDENCIES
   sqlite3 (~> 1.4)
   tzinfo-data
   webmock
+  whenever
 
 RUBY VERSION
    ruby 2.6.3p62
