@@ -15,7 +15,7 @@ Docker-compose will launch 3 containers :
 
 ## API reference
 - [Postman Collection](https://documenter.getpostman.com/view/323895/SVn2NvbJ)
-- [OpenApiV3 reference]()
+- [OpenApiV3 reference](https://stoplight.io/p/docs/gh/karol-blaszczyk/acme_ch)
 
 
 ## SignUp
