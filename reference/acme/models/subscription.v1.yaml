@@ -1,0 +1,14 @@
+title: Subscription
+type: object
+properties:
+  id:
+    type: string
+  type:
+    type: string
+title: Subscription
+type: object
+properties:
+  id:
+    type: string
+  type:
+    type: string
