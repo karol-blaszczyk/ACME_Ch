@@ -2,9 +2,9 @@
 
 ```
 $ docker-compose build
-$ docker-compose run web rake db:create
-$ docker-compose run api rake db:migrate
-$ docker-compose run api rake db:seed
+$ docker-compose run puma rake db:create
+$ docker-compose run puma rake db:migrate
+$ docker-compose run puma rake db:seed
 $ docker-compose up
 ```
 
