@@ -1,7 +1,7 @@
 title: Error
 type: object
 x-examples:
-  example-1:
+  example:
     value:
       success: false
       errors:

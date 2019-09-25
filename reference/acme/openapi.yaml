@@ -113,6 +113,9 @@ paths:
           required: true
       security:
         - AccessToken: []
+      tags:
+        - Api Reference
+        - Subscription
     parameters: []
     delete:
       summary: Delete Subscription
@@ -139,6 +142,9 @@ paths:
           in: header
           name: uid
           required: true
+      tags:
+        - Api Reference
+        - Subscription
     get:
       summary: List My Subscriptions
       responses:
@@ -204,6 +210,7 @@ paths:
           required: true
       tags:
         - Api Reference
+        - Subscription
   /auth:
     post:
       summary: SignUp
