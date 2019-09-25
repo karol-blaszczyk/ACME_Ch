@@ -287,6 +287,7 @@ paths:
         description: ''
       tags:
         - Api Reference
+        - Auth
   /auth/sign_in:
     post:
       summary: SignIn
@@ -328,6 +329,7 @@ paths:
         description: ''
       tags:
         - Api Reference
+        - Auth
   /plans:
     get:
       summary: Plans
