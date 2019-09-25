@@ -4,6 +4,7 @@ require_relative 'boot'
 
 require 'rails'
 
+require "active_job/railtie"
 require 'active_model/railtie'
 require 'active_record/railtie'
 require 'action_controller/railtie'
@@ -17,6 +18,7 @@ module AcmeOnlineApi
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.0
+    config.active_job.queue_adapter = :sidekiq
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
