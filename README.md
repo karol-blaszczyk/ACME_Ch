@@ -1,24 +1,27 @@
-# README
+Run API 
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+```
+$ docker-compose build
+$ docker run api rake db:migrate
+$ docker run api rake db:seed
+$ docker-compose up
+```
 
-Things you may want to cover:
 
-* Ruby version
+[Postman Collection](https://documenter.getpostman.com/view/323895/SVn2NvbJ)
 
-* System dependencies
 
-* Configuration
 
-* Database creation
 
-* Database initialization
+## SignUp 
+Api require user authenitcation with tokens 
 
-* How to run the test suite
+When you `sign_up / sign_in` headers will be returned:
+  - `access-token`
+  - `client`
+  - `uid`
 
-* Services (job queues, cache servers, search engines, etc.)
+Requests made to `/subscription` endpoints require meantioned headers to authenticate user. 
 
-* Deployment instructions
-
-* ...
+## Subscribe to Plan 
+Retrive list of plans : `GET /plans`i
