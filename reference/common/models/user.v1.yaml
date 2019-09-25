@@ -24,4 +24,4 @@ properties:
       - string
       - 'null'
 x-tags:
-  - v1.0.0
+  - Api Reference
