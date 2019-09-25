@@ -1,9 +1,39 @@
 version: '3.7'
 
 services:
+  redis:
+    image: redis:5.0.5
+    volumes:
+      - redis:/data/redis:cached
+    networks:
+      acme:
+        aliases:
+          - acme.redis
+
+  sidekiq:
+    build:
+      context: .
+    environment:
+      RAILS_ENV: "development"
+      REDIS_URL: "redis://redis:6379/12"
+    command: bundle exec sidekiq -C config/sidekiq.yml
+    volumes:
+      - .:/app
+      - bundle:/bundle:cached
+    tty: true
+    stdin_open: true
+    depends_on:
+      - redis
+    networks:
+      acme:
+        aliases:
+          - acme.sidekiq
   puma:
     build:
       context: .
+    environment:
+      RAILS_ENV: "development"
+      REDIS_URL: "redis://redis:6379/12"
     command: bin/rails s -b '0.0.0.0' -p '3000'
     ports:
       - 3000:3000
@@ -12,5 +42,17 @@ services:
       - bundle:/bundle:cached
     tty: true
     stdin_open: true
+    depends_on:
+      - redis
+    networks:
+      acme:
+        aliases:
+          - acme.puma
 volumes:
+  redis:
   bundle:
+
+networks:
+  acme:
+    name: acme
+    driver: bridge
