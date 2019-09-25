@@ -12,6 +12,13 @@ paths:
       responses:
         '201':
           description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: ./models/subscription.v1.yaml
         '401':
           description: Unauthorized
           content:
@@ -86,8 +93,117 @@ paths:
                   type: number
               required:
                 - subscription
+        description: ''
       description: "When a request to API endpoint is made, you will attempt a \"purchase\" with the customer's payment information. If the purchase is successful, a new subscription will be created."
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: access-token
+          required: true
+        - schema:
+            type: string
+          in: header
+          name: client
+          required: true
+        - schema:
+            type: string
+          in: header
+          name: uid
+          required: true
+      security:
+        - AccessToken: []
     parameters: []
+    delete:
+      summary: ''
+      responses:
+        '204':
+          description: No Content
+      description: Remove subscription
+      security:
+        - AccessToken: []
+      requestBody: {}
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: access-token
+          required: true
+        - schema:
+            type: string
+          in: header
+          name: client
+          required: true
+        - schema:
+            type: string
+          in: header
+          name: uid
+          required: true
+    get:
+      summary: ''
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: ./models/subscription.v1.yaml
+              examples:
+                example:
+                  value:
+                    data:
+                      - id: '1'
+                        type: subscription
+                        attributes:
+                          price: 4900
+                        relationships:
+                          plan:
+                            data:
+                              id: '2'
+                              type: plan
+                          user:
+                            data:
+                              id: '1'
+                              type: user
+                      - id: '2'
+                        type: subscription
+                        attributes:
+                          price: 9900
+                        relationships:
+                          plan:
+                            data:
+                              id: '3'
+                              type: plan
+                          user:
+                            data:
+                              id: '1'
+                              type: user
+      description: Get List of current subscriptions
+      security:
+        - AccessToken: []
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: access-token
+          required: true
+        - schema:
+            type: string
+          in: header
+          name: client
+          required: true
+        - schema:
+            type: string
+          in: header
+          name: uid
+          required: true
+      tags:
+        - 1.0.1
   /auth:
     post:
       summary: SignUp
@@ -124,11 +240,14 @@ paths:
                 type: string
               description: |
                 Api Access Token
-              required: true
             uid:
               schema:
                 type: string
               description: User uid
+            client:
+              schema:
+                type: string
+              description: Api token client
         '422':
           description: Unprocessable Entity
           content:
@@ -184,6 +303,12 @@ paths:
               schema:
                 type: string
               description: User access token
+            uid:
+              schema:
+                type: string
+            client:
+              schema:
+                type: string
       description: User Sign In
       requestBody:
         content:
@@ -199,10 +324,23 @@ paths:
                 - email
                 - password
         description: ''
+  /plans:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '':
+                    type: string
 components:
   schemas: {}
   securitySchemes:
     AccessToken:
       type: http
-      scheme: Bearer
-      description: User Access Token
+      scheme: Basic
