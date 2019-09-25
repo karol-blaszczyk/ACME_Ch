@@ -1,11 +1,8 @@
-frozen_string_literal: true
+# frozen_string_literal: true
 
 class UserChargeJob < ActiveJob::Base
-  # Automatically retry jobs that encountered a deadlock
-  # retry_on ActiveRecord::Deadlocked
-
-  # Most jobs are safe to ignore if the underlying records are no longer available
-  # discard_on ActiveJob::DeserializationError
+  # Charge user for his Subscriptions
+  # @param user [User]
   def perform(user)
     user.subscriptions.each do |subscription|
       charge_for_subscription = SubscriptionCharge.new.with_step_args(

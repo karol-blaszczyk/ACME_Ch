@@ -6,7 +6,7 @@ module Card
   class PaymentGate
     include Dry::Monads[:result, :do]
 
-    # endpoint to simulate the authorization, tokenization, and charging of a credit card
+    # endpoint simulates the authorization, tokenization, and charging of a credit card
     FAKEPAY_CONNECTION = Faraday.new(
       url: 'https://www.fakepay.io',
       headers: { 'Content-Type' => 'application/json' }
@@ -16,6 +16,7 @@ module Card
       conn.authorization :Token, token: '6bc7446dbd7e42cd969fa9ba007352'
     end
 
+    # @param attributes [Hash] credit card details hash or hash with token
     def call(attributes)
       response = FAKEPAY_CONNECTION.post('/purchase', attributes.to_json)
 

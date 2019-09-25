@@ -2,6 +2,7 @@
 
 require 'dry/transaction'
 
+# Charge for Subscription transaction
 class SubscriptionCharge
   include Dry::Transaction(container: ::Container)
 

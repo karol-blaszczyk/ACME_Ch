@@ -9,6 +9,7 @@ module Subscriptions
 
     # We save subscription customer shipping information on user record
     # @param subscription [Subscription]
+    # @param customer_shipping_information [Hash]
     def call(subscription, customer_shipping_information)
       subscription.user.update(
         billing_first_name: customer_shipping_information['first_name'],

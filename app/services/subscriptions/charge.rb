@@ -7,6 +7,7 @@ module Subscriptions
   class Charge
     include Dry::Transaction::Operation
 
+    # Charge for subscription
     # @param subscription [Subscription]
     # @param credit_card_attributes [Hash]
     def call(subscription, credit_card_attributes)
