@@ -140,7 +140,7 @@ paths:
           name: uid
           required: true
     get:
-      summary: ''
+      summary: Subscriptions
       responses:
         '200':
           description: OK
@@ -326,7 +326,7 @@ paths:
         description: ''
   /plans:
     get:
-      summary: Your GET endpoint
+      summary: Plans
       tags: []
       responses:
         '200':
