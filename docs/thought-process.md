@@ -1,21 +1,43 @@
-# Thought process
-
-Take Rail in api mode (remove unnecessary files), rails was fastest to prototype
-
-Added simple auth logic
+# Run API 
 
 ```
-Simple, multi-client and secure token-based authentication for Rails.
+$ docker-compose build
+$ docker-compose run web rake db:create
+$ docker-compose run api rake db:migrate
+$ docker-compose run api rake db:seed
+$ docker-compose up
+```
 
-If you're building SPA or a mobile app, and you want authentication, you need tokens, not cookies. This gem refreshes the tokens on each request, and expires them in a short time, so the app is secure. Also, it maintains a session for each client/device, so you can have as many sessions as you want.
+Docker-compose will launch 3 containers :
+  - Puma
+  - Sidekiq
+  - Redis 
+
+## API reference
+- [Postman Collection](https://documenter.getpostman.com/view/323895/SVn2NvbJ)
+- [OpenApiV3 reference]()
+
+
+## SignUp 
+
+When you `sign_up / sign_in`, following headers will be returned:
+  - `access-token`
+  - `client`
+  - `uid`
+
+## Subscription 
+
+Requests made to `/subscription` endpoints require mentioned headers to authenticate user.
+
+You can subscribe to specified plan only once
+
+## Scheduled payments
+
+`schedule.rb` file is converted to cron syntax. It does not read or write your crontab file; you'll need to do this in order for your jobs to execute:
+
+```
+$ whenever --update-crontab
 ```
 
 
-USER_CLASS
-User
-The name of the class to use for user authentication
-
-MOUNT_PATH
-auth
-The path at which to mount the authentication routes
 
