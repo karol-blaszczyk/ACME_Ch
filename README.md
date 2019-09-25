@@ -1,4 +1,4 @@
-Run API 
+# Run API 
 
 ```
 $ docker-compose build
@@ -14,14 +14,11 @@ $ docker-compose up
 
 
 ## SignUp 
-Api require user authenitcation with tokens 
+Api endpoint `/subscriptions`  require user authenitcation
 
-When you `sign_up / sign_in` headers will be returned:
+When you `sign_up / sign_in`, following headers will be returned:
   - `access-token`
   - `client`
   - `uid`
 
 Requests made to `/subscription` endpoints require meantioned headers to authenticate user. 
-
-## Subscribe to Plan 
-Retrive list of plans : `GET /plans`i
