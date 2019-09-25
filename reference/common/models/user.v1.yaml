@@ -23,3 +23,5 @@ properties:
     type:
       - string
       - 'null'
+x-tags:
+  - v1.0.0

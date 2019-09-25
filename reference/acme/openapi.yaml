@@ -203,7 +203,7 @@ paths:
           name: uid
           required: true
       tags:
-        - 1.0.1
+        - v1.0.0
   /auth:
     post:
       summary: SignUp
@@ -285,6 +285,8 @@ paths:
                 - password
                 - password_confirmation
         description: ''
+      tags:
+        - v1.0.0
   /auth/sign_in:
     post:
       summary: SignIn
@@ -324,10 +326,13 @@ paths:
                 - email
                 - password
         description: ''
+      tags:
+        - v1.0.0
   /plans:
     get:
       summary: Plans
-      tags: []
+      tags:
+        - v1.0.0
       responses:
         '200':
           description: OK
@@ -336,7 +341,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  '':
+                  '1.':
                     type: string
 components:
   schemas: {}

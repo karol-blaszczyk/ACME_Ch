@@ -5,3 +5,5 @@ properties:
     type: array
     items:
       type: string
+x-tags:
+  - v1.0.0

@@ -16,3 +16,5 @@ properties:
       type: string
   status:
     type: string
+x-tags:
+  - v1.0.0
